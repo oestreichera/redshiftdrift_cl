@@ -2,6 +2,14 @@
 
 Code to calculate the angular power spectrum of redshift drift fluctuations as described in arxiv: 
 
+For either a $\Lambda$ CDM universe:
+
+> cl.py
+
+or an EinsteinDe-Sitter universe:
+
+> cl_EdS.py 
+
 ### Requirements
 
 The code requires the library [FFTLog-and-beyond](https://github.com/xfangcosmo/FFTLog-and-beyond)
