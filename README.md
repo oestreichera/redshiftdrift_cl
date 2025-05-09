@@ -1,6 +1,6 @@
 ## Redshift Drift $C_l$
 
-Code to calculate the angular power spectrum of redshift drift fluctuations as described in arxiv: 
+Code to calculate the angular power spectrum of redshift drift fluctuations as described in arxiv:2505.04731
 
 For either a $\Lambda$ CDM universe:
 
@@ -19,7 +19,7 @@ and the python version of [CLASS](http://class-code.net/) which can be installed
 
 ### Credits 
 
-If you use this code in a scientific publication we ask you to please cite: 
+If you use this code in a scientific publication we ask you to please cite arxiv:2505.04731
 
 ### Contact
 
