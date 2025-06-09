@@ -51,7 +51,7 @@ def f(z):
 
 def df_da(z): 
     eps = 1e-5
-    a_plus = (a(z) + eps) if (a(z)+eps)<=1.0 else 1.0
+    a_plus = np.minimum(a(z)+eps,1.0)
     a_minus = a(z) - eps 
     z_plus = 1/a_plus-1
     z_minus = 1/a_minus-1
@@ -66,11 +66,10 @@ def transfer(z):
 def gaussian(x, mu, sigma):
     return (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-((x - mu) ** 2) / (2 * sigma ** 2))
 
-def tophat(z,z_mean,dz):
-    if ((z<=z_mean+dz) & (z>=z_mean-dz)):
-        return 1/2/dz
-    else:
-        return 0
+def tophat(z, z_mean, dz):
+    mask = (z <= z_mean + dz) & (z >= z_mean - dz)
+    return np.where(mask, 1 / (2 * dz), 0)
+
 
 @lru_cache(maxsize=None)
 def window(z_mean, dz, type='tophat'):
@@ -93,10 +92,10 @@ def window(z_mean, dz, type='tophat'):
     x = np.geomspace(r_min,r_max,10000)
 
     if (type=='tophat'): 
-        f_of_x = [dzdr_of_r(xi)*transfer(z_of_r(xi))*tophat(z_of_r(xi),z_mean,dz) for xi in x]
+        f_of_x = dzdr_of_r(x)*transfer(z_of_r(x))*tophat(z_of_r(x),z_mean,dz)
 
     if (type=='gauss'): 
-        f_of_x = [dzdr_of_r(xi)*transfer(z_of_r(xi))*gaussian(z_of_r(xi),z_mean,dz) for xi in x]
+        f_of_x = dzdr_of_r(x)*transfer(z_of_r(x))*gaussian(z_of_r(x),z_mean,dz)
 
     #initialise FFTlog
     # -> x*f_of_x to cancel a factor 1/x in the definition of the integrand in FFTlog
